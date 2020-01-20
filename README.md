@@ -1,4 +1,4 @@
-# github-search
+# github_search
 
 ### Project description
 Application for searching Github repositories. This application was developed with the purpose of studying the BLoC pattern.
