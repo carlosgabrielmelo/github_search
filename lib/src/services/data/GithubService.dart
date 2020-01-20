@@ -8,7 +8,7 @@ class GithubService{
 
   Future<SearchResult> search(String term) async {
     try{
-      Response response = await dio.get("https://api.github.com/search/repositories?q=${term}");
+      Response response = await dio.get("https://api.github.com/search/repositories?q="+term);
 
       return SearchResult.fromJson(response.data);
     }catch (e) {
