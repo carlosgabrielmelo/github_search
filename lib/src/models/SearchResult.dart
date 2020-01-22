@@ -1,16 +1,17 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:github_search/src/models/SearchItem.dart';
+
+part 'SearchResult.g.dart';
+
+@JsonSerializable()
 
 class SearchResult {
   final List<SearchItem> items;
 
   SearchResult(this.items);
 
-  factory SearchResult.fromJson(Map<String, dynamic> json){
-    final listItems = (json["items"] as List).cast<Map<String, dynamic>>()?.map((item){
-      return SearchItem.fromJson(item);
-    })?.toList();
+  factory SearchResult.fromJson(Map<String, dynamic> json) => _$SearchResultFromJson(json);
 
-    return SearchResult(listItems);
-  }
+  Map<String, dynamic> toJson() => _$SearchResultToJson(this);
 
 }
