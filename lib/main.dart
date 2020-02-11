@@ -1,5 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:github_search/src/app.dart';
+import 'package:catcher/catcher_plugin.dart';
 
 
-void main() => runApp(App());
+
+void main(){
+  CatcherOptions debugOptions =
+      CatcherOptions(DialogReportMode(), [ConsoleHandler()]);
+  CatcherOptions releaseOptions = CatcherOptions(DialogReportMode(), [
+    EmailManualHandler(["recipient@email.com"])
+  ]);
+
+  Catcher(App(), debugConfig: debugOptions, releaseConfig: releaseOptions);
+}
