@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:github_search/src/models/SearchItem.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:github_search/src/services/data/GithubService.dart';
+import 'package:github_search/src/resources/repositories/GithubRepository.dart';
 
 class SearchBloc {
-  GithubService _service = new GithubService();
+  GithubRepository _githubRepository = GithubRepository();
 
-  final _searchController = new BehaviorSubject<String>();
+  final _searchController = BehaviorSubject<String>();
   Stream<String> get searchFlux => _searchController.stream;
   Sink<String> get searchEvent => _searchController.sink;
 
@@ -14,12 +14,11 @@ class SearchBloc {
 
   SearchBloc(){
     apiResultFlux = searchFlux
-        .distinct()
-        .where((response) => response.length>2)
-        .debounceTime(Duration(milliseconds: 500))
-        .asyncMap(_service.search)
-        .switchMap((response) => Stream.value(response.items));
-
+      .distinct()
+      .where((response) => response.length>2)
+      .debounceTime(Duration(milliseconds: 500))
+      .asyncMap(_githubRepository.getRepositoriesByTerm)
+      .switchMap((response) => Stream.value(response.items));
   }
 
   void dispose(){

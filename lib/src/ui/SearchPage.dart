@@ -18,13 +18,13 @@ class _SearchPageState extends State<SearchPage> {
   SearchBloc _searchBloc;
 
   @override
-  void initState(){
-    _searchBloc = new SearchBloc();
+  void initState() {
+    _searchBloc = SearchBloc();
     super.initState();
   }
 
   @override
-  void dispose(){
+  void dispose() {
     _searchBloc?.dispose();
     super.dispose();
   }
@@ -58,7 +58,9 @@ class _SearchPageState extends State<SearchPage> {
           CupertinoPageRoute(
               builder: (context) => DetailsPage(
                     item: item,
-                  ))),
+              )
+          )
+      ),
     );
   }
 
@@ -72,23 +74,23 @@ class _SearchPageState extends State<SearchPage> {
         children: <Widget>[
           _textField(),
           StreamBuilder<List<SearchItem>>(
-            stream: _searchBloc.apiResultFlux,
-            builder: (BuildContext context, AsyncSnapshot<List<SearchItem>> snapshot) {
-              return snapshot.hasData ? 
-              ListView.builder(
-                shrinkWrap: true,
-                physics: ClampingScrollPhysics(),
-                itemCount: snapshot.data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  SearchItem item = snapshot.data[index];
-                  return _items(item);
-                },
-              ) 
-              : Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          ),
+              stream: _searchBloc.apiResultFlux,
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<SearchItem>> snapshot) {
+                return snapshot.hasData
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        physics: ClampingScrollPhysics(),
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          SearchItem item = snapshot.data[index];
+                          return _items(item);
+                        },
+                      )
+                    : Center(
+                        child: CircularProgressIndicator(),
+                      );
+              }),
         ],
       ),
     );

@@ -1,13 +1,13 @@
 import 'dart:developer';
-import 'dart:io';
 
+import 'package:catcher/catcher_plugin.dart';
 import 'package:dio/dio.dart';
 import 'package:github_search/src/models/SearchResult.dart';
 
-class GithubService {
+class GithubDataProvider {
   final Dio _dio = Dio();
 
-  GithubService(){
+  GithubDataProvider(){
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (RequestOptions options) async {
         log("requisição foi interceptada antes de ser feita");
@@ -25,13 +25,14 @@ class GithubService {
     ));
   }
 
-  Future<SearchResult> search(String term) async {
+  Future<SearchResult> readRepositoriesByTerm(String term) async {
     try{
       Response response = await _dio.get("search/repositories?q="+term);
 
       return SearchResult.fromJson(response.data);
-    }catch (error){
-      throw SocketException(error.message);
+    }catch (error, stacktrace){
+      Catcher.reportCheckedError(error.message, stacktrace);
+      throw Exception(error.message);
     }
   }
 
