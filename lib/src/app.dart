@@ -1,5 +1,6 @@
 import 'package:catcher/catcher_plugin.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:github_search/src/ui/SearchPage.dart';
 
@@ -12,6 +13,14 @@ class App extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData.light(),
       home: SearchPage(),
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('pt', 'BR'),
+      ],
     );
   }
 }

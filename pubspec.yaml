@@ -19,6 +19,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   rxdart: ^0.23.1
   dio: ^3.0.8
   json_annotation: ^3.0.1
