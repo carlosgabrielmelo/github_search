@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:github_search/src/models/SearchItem.dart';
 
-class DetailsWidget extends StatefulWidget {
+class DetailsPage extends StatefulWidget {
   final SearchItem item;
 
-  const DetailsWidget({Key key, this.item}) : super(key: key);
+  const DetailsPage({Key key, this.item}) : super(key: key);
 
   @override
-  _DetailsWidgetState createState() => _DetailsWidgetState();
+  _DetailsPageState createState() => _DetailsPageState();
 }
 
-class _DetailsWidgetState extends State<DetailsWidget> {
+class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
